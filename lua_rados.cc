@@ -42,6 +42,8 @@ struct lrad_cluster {
  */
 static inline struct lrad_cluster *__lrad_checkcluster(lua_State *L, int pos)
 {
+  //void *luaL_checkudata (lua_State *L, int index, const char *tname);
+  //检查在栈中指定位置的对象是否为带有给定名字的metatable的userdata
   struct lrad_cluster *cluster = (struct lrad_cluster *)luaL_checkudata(L, pos, LRAD_TRADOS_T);
   return cluster;
 }
@@ -658,7 +660,8 @@ static const luaL_Reg radoslib_f[] = {
   {NULL, NULL}
 };
 
-extern "C" {
+//lua 代码执行require 后 会寻找luaopen_mylib 函数，将其注册为一个lua 函数，调用它打开模块。
+extern "C" { 
 
 LUALIB_API int luaopen_rados(lua_State *L)
 {
